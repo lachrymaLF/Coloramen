@@ -41,6 +41,9 @@ body {
     width: 10px;
     background-color: white;
     position: absolute;
+    outline-style: solid;
+    outline-width: 2px;
+    outline-color: gray;
 }
 
 .gradtab::after {
@@ -54,9 +57,12 @@ body {
 }
 
 .selected {
-    outline-style: solid;
-    outline-width: 2px;
-    outline-color: indianred;
+    outline-color: salmon !important;
+}
+
+#first-tab,
+#last-tab {
+    outline-color: powderblue;
 }
 
 

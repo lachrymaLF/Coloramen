@@ -5,21 +5,22 @@
 function main() {
     //init
     //let csInterface = new CSInterface();
-
+    let tab_container = document.querySelector("#gradtab-container");
     let btn_addtab = document.querySelector("#btn_addtab");
     let btn_deltab = document.querySelector("#btn_deltab");
     let btn_changecolor = document.querySelector("#btn_changecolor");
     let btn_apply = document.querySelector("#btn_apply");
-    let perc_text = document.querySelector("#perc_text");
     let gradient = document.querySelector("#grad");
 
     let tabs;
     let tab_colors;
     let tab_positions;
 
-    const tab_width = 10; //in px
+    const tab_width = 10; //in px,, check styls.css > .gradtab > width
 
     let selected_tab;
+
+    let last_selected_color = "FF0000";
 
     update_tab_data();
 
@@ -67,6 +68,7 @@ function main() {
         if (tab) {
             selected_tab = tab;
             tab.classList.add("selected");
+            last_selected_color = tab.dataset.color;
         } else {
             selected_tab = null;
         }
@@ -78,25 +80,22 @@ function main() {
 
     //init functions
     function init_tab(tab) {
-        if (tab.id == "first-tab") {
-            tab.style.left = compute_tab_pos(0);
-        } else if (tab.id == "last-tab") {
-            tab.style.left = compute_tab_pos(1);
-        } else {
+        if (!(tab.id == "first-tab" || tab.id == "last-tab")) {
             // TODO: init dragging behavior
+            tab.addEventListener("drag", function() {
+                update_tab_data(null);
+            });
         }
+        tab.style.left = compute_tab_pos(tab.dataset.pos);
         tab.addEventListener("mousedown", function() {
             update_selection(this);
-        });
-        tab.addEventListener("drag", function() {
-            update_tab_data(null);
         });
         if (tab.dataset.color)
             tab.style.backgroundColor = `#${tab.dataset.color}`;
     }
 
     function init_tab_deselector() {
-        document.querySelector("#gradtab-container").addEventListener("mousedown", function(e) {
+        tab_container.addEventListener("mousedown", function(e) {
             if (e.target == this) {
                 update_selection(null);
             };
@@ -105,7 +104,15 @@ function main() {
 
     function init_btn_addtab() {
         btn_addtab.addEventListener("click", function() {
-            //TODO: add tab obj in dom and update data
+            let tab = document.createElement("span");
+            tab.classList.add("gradtab");
+            tab.dataset.color = last_selected_color;
+            tab.dataset.pos = (tab_positions[0] + tab_positions[1]) / 2;
+            init_tab(tab);
+            tab_container.appendChild(tab);
+            update_tab_data();
+            update_grad(tab_colors, tab_positions);
+            update_selection(tab);
         });
     }
 
@@ -124,12 +131,14 @@ function main() {
             selected_tab.remove();
             selected_tab = null;
             update_tab_data();
+            update_grad(tab_colors, tab_positions);
         });
     }
 
     function init_btn_changecolor() {
         btn_changecolor.addEventListener("click", function() {
             if (!selected_tab) {
+                //TODO: turn alert into extendscript alert
                 alert("No tab selected!");
                 return;
             }
