@@ -1,0 +1,107 @@
+/*Your styles*/
+
+.sansserif {
+    font-family: Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+body {
+    margin: 10px;
+}
+
+#perc_text {
+    padding-top: 20px;
+}
+
+#content {
+    margin-right: auto;
+    margin-left: auto;
+    vertical-align: middle;
+    width: 100%;
+}
+
+#btn_apply {
+    width: 100%;
+}
+
+#grad {
+    height: 50px;
+    margin-top: 10px;
+}
+
+#gradtab-container {
+    position: relative;
+    height: 30px;
+    margin: 5px 0 5px 0;
+}
+
+.gradtab {
+    height: 100%;
+    width: 10px;
+    background-color: white;
+    position: absolute;
+}
+
+.gradtab::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    border-width: 0px 5px 12px 5px;
+    border-color: yellowgreen transparent;
+    border-style: solid;
+    margin-top: -15px;
+}
+
+.selected {
+    outline-style: solid;
+    outline-width: 2px;
+    outline-color: indianred;
+}
+
+
+/*
+Those classes will be edited at runtime with values specified
+by the settings of the CC application
+*/
+
+.hostFontColor {}
+
+.hostFontFamily {}
+
+.hostFontSize {}
+
+
+/*font family, color and size*/
+
+.hostFont {}
+
+
+/*background color*/
+
+.hostBgd {}
+
+
+/*lighter background color*/
+
+.hostBgdLight {}
+
+
+/*darker background color*/
+
+.hostBgdDark {}
+
+
+/*background color and font*/
+
+.hostElt {}
+
+.hostButton {
+    border: 1px solid;
+    border-radius: 2px;
+    height: 20px;
+    vertical-align: bottom;
+    font-family: inherit;
+    color: inherit;
+    font-size: inherit;
+}
