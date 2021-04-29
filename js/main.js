@@ -103,8 +103,9 @@ function main() {
 
             tab_container.onmousemove = function(emove) {
                 if (selected_tab && !(selected_tab.id == "first-tab") && !(selected_tab.id == "last-tab")) {
-                    selected_tab.style.left = compute_tab_pos((emove.clientX - grad_offset) / grad_length);
-                    selected_tab.dataset.pos = (emove.clientX - grad_offset) / grad_length;
+                    let new_tab_pos = Math.min(Math.max(0.005, (emove.clientX - grad_offset) / grad_length), .995);
+                    selected_tab.style.left = compute_tab_pos(new_tab_pos);
+                    selected_tab.dataset.pos = new_tab_pos;
                     update_tab_data();
                     update_grad(tab_colors, tab_positions);
                 }
