@@ -10,6 +10,16 @@ body {
     margin: 10px;
 }
 
+th,
+td {
+    text-align: center;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+
 #perc_text {
     padding-top: 20px;
 }
@@ -58,6 +68,7 @@ body {
 
 .selected {
     outline-color: salmon !important;
+    z-index: 1;
 }
 
 #first-tab,

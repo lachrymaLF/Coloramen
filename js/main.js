@@ -11,6 +11,7 @@ function main() {
     let btn_changecolor = document.querySelector("#btn_changecolor");
     let btn_apply = document.querySelector("#btn_apply");
     let gradient = document.querySelector("#grad");
+    let tab_table = document.querySelector("#tab_table");
 
     let tabs;
     let tab_colors;
@@ -53,6 +54,25 @@ function main() {
         }
 
         gradient.style.background = grad_str;
+
+        update_table();
+    }
+
+    function update_table() {
+        Array.from(tab_table.children[0].rows).forEach((e) => e.remove());
+        let rows = tab_colors.map(e => tab_table.insertRow(0));
+        rows.reverse().forEach((r, i) => {
+            let cell1 = r.insertCell(0);
+            let cell2 = r.insertCell(1);
+            let cell3 = r.insertCell(2);
+            cell1.innerHTML = i;
+            cell2.innerHTML = (tab_positions[i] * 100).toFixed(2) + "%";
+            cell3.innerHTML = tab_colors[i];
+        });
+        rows.forEach((e, i) => e.addEventListener("click", function() {
+            update_selection(tabs[i]);
+            update_grad(tab_colors, tab_positions);
+        }));
     }
 
     function update_tab_data() {
@@ -162,7 +182,7 @@ function main() {
             csInterface.evalScript(
                 `pickColor(${parseInt(selected_tab.dataset.color, 16)}, \"lib:${csInterface.getSystemPath(SystemPath.EXTENSION).replace(new RegExp('\/', 'g'), '\\\\')}\\\\AEColorPicker.aex\");`,
                 function(result) {
-                    selected_tab.dataset.color = Number(result).toString(16);
+                    selected_tab.dataset.color = last_selected_color = Number(result).toString(16);
                     tab_set_color(selected_tab);
                     update_tab_data();
                     update_grad(tab_colors, tab_positions);
