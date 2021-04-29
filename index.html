@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8" />
 
-    <link rel="stylesheet" href="css/topcoat-desktop-dark.min.css" />
-    <link id="hostStyle" rel="stylesheet" href="css/styles.css" />
+    <link id="hostStyle" rel="stylesheet" href="css/themeManager.css" />
+    <link rel="stylesheet" href="css/styles.css" />
 
     <title>Coloramen</title>
 </head>
@@ -13,11 +13,19 @@
 <body style="user-select: none" class="hostElt">
 
     <div id="content">
-
         <div>
-            <button id="btn_addtab" class="topcoat-button--large hostFontSize">+</button>
-            <button id="btn_deltab" class="topcoat-button--large hostFontSize">-</button>
-            <button id="btn_changecolor" class="topcoat-button--large hostFontSize">Change Color</button>
+            <table>
+                <tr>
+                    <td colspan="3">
+                        <button id="btn_apply">Apply Colorama</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button style="width:100%" id="btn_addtab">+</button></td>
+                    <td><button style="width:100%" id="btn_deltab">-</button></td>
+                    <td><button style="width:100%" id="btn_changecolor">Change Color</button></td>
+                </tr>
+            </table>
         </div>
         <div id="grad-container">
             <div id="grad"></div>
@@ -27,32 +35,30 @@
             </div>
         </div>
         <div>
-            <button id="btn_apply" class="topcoat-button--large hostFontSize">Apply Colorama</button>
+            <table id="tab-table-labels" style="margin-top:.5em;">
+                <th>Index</th>
+                <th>Position</th>
+                <th>Color</th>
+            </table>
+            <table id="tab-table">
+                <tr>
+                    <td>0</td>
+                    <td>0%</td>
+                    <td>000000</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>100%</td>
+                    <td>FFFFFF</td>
+                </tr>
+            </table>
         </div>
-    </div>
-    <div>
-        <table>
-            <th>Tab #</th>
-            <th>Position</th>
-            <th>Color</th>
-        </table>
-        <table id="tab_table">
-            <tr>
-                <td>0</td>
-                <td>0%</td>
-                <td>000000</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>100%</td>
-                <td>FFFFFF</td>
-            </tr>
-        </table>
     </div>
 
     <script src="js/libs/CSInterface.js"></script>
-
+    <!-- though I'm doing a huge load of custom styles, I still want to preserve as many of these from themeManager as possible  -->
     <script src="js/themeManager.js"></script>
+
     <script src="js/main.js"></script>
 
 

@@ -1,13 +1,31 @@
-/*Your styles*/
+@font-face {
+    font-family: Latin Modern;
+    src: url('https://lachrymal.net/assets/layout/fonts/LMR/lmroman-regular.woff');
+    font-style: normal;
+}
 
-.sansserif {
-    font-family: Helvetica, sans-serif;
-    font-weight: bold;
-    font-size: 20px;
+p,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+small,
+blockquote,
+li,
+button,
+input,
+td,
+th {
+    color: white;
+    font-family: Latin Modern, serif !important;
 }
 
 body {
     margin: 10px;
+    background-color: black !important;
 }
 
 th,
@@ -20,8 +38,64 @@ table {
     width: 100%;
 }
 
-#perc_text {
-    padding-top: 20px;
+#tab-table td {
+    font-size: 15px;
+}
+
+#tab-table-labels th {
+    font-size: 20px;
+}
+
+#tab-table-labels,
+#tab-table {
+    border-top: 1px white solid;
+}
+
+#tab-table td {
+    border-bottom: 1px white solid;
+}
+
+#tab-table-labels tr {
+    background-color: rgba(255, 255, 255, .4)
+}
+
+#tab-table tr {
+    transition: .1s;
+}
+
+#tab-table tr:hover {
+    background-color: rgba(255, 255, 255, .2);
+}
+
+#tab-table tr:active,
+.tr-selected,
+#tab-table tr:active td {
+    background-color: rgba(255, 255, 255, .8);
+    color: black;
+}
+
+.tr-selected td {
+    color: black;
+}
+
+button {
+    height: 3em;
+    background-color: transparent;
+    border: 1px solid white;
+    outline: none;
+    transition: .1s;
+    padding: 0;
+    font-family: Symbola, sans-serif;
+    font-size: 1.9em;
+}
+
+button:hover {
+    background-color: white;
+    color: black;
+}
+
+button:active {
+    background-color: rgba(255, 255, 255, .2);
 }
 
 #content {
@@ -40,6 +114,12 @@ table {
     margin-top: 10px;
 }
 
+#grad-container {
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 2%, gray 2%, gray 4%);
+    ;
+    outline: darkslategray 5px solid;
+}
+
 #gradtab-container {
     position: relative;
     height: 30px;
@@ -56,14 +136,31 @@ table {
     outline-color: gray;
 }
 
+.gradtab:hover,
+#first-tab:hover,
+#last-tab:hover {
+    outline-color: rgb(180, 180, 180);
+}
+
 .gradtab::after {
     content: "";
     display: inline-block;
     position: absolute;
     border-width: 0px 5px 12px 5px;
-    border-color: yellowgreen transparent;
+    border-color: white transparent;
     border-style: solid;
     margin-top: -15px;
+}
+
+.gradtab::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    border-width: 0px 7px 14px 7px;
+    border-color: black transparent;
+    border-style: solid;
+    margin-top: -17px;
+    margin-left: -2px;
 }
 
 .selected {
@@ -73,52 +170,5 @@ table {
 
 #first-tab,
 #last-tab {
-    outline-color: powderblue;
-}
-
-
-/*
-Those classes will be edited at runtime with values specified
-by the settings of the CC application
-*/
-
-.hostFontColor {}
-
-.hostFontFamily {}
-
-.hostFontSize {}
-
-
-/*font family, color and size*/
-
-.hostFont {}
-
-
-/*background color*/
-
-.hostBgd {}
-
-
-/*lighter background color*/
-
-.hostBgdLight {}
-
-
-/*darker background color*/
-
-.hostBgdDark {}
-
-
-/*background color and font*/
-
-.hostElt {}
-
-.hostButton {
-    border: 1px solid;
-    border-radius: 2px;
-    height: 20px;
-    vertical-align: bottom;
-    font-family: inherit;
-    color: inherit;
-    font-size: inherit;
+    outline-color: darkslategray;
 }

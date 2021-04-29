@@ -11,7 +11,7 @@ function main() {
     let btn_changecolor = document.querySelector("#btn_changecolor");
     let btn_apply = document.querySelector("#btn_apply");
     let gradient = document.querySelector("#grad");
-    let tab_table = document.querySelector("#tab_table");
+    let tab_table = document.querySelector("#tab-table");
 
     let tabs;
     let tab_colors;
@@ -28,7 +28,7 @@ function main() {
     update_tab_data();
 
     tabs.forEach(init_tab);
-    init_tab_container();
+    init_tab_dragging();
     init_btn_addtab();
     init_btn_deltab();
     init_btn_changecolor();
@@ -60,14 +60,27 @@ function main() {
 
     function update_table() {
         Array.from(tab_table.children[0].rows).forEach((e) => e.remove());
-        let rows = tab_colors.map(e => tab_table.insertRow(0));
+        let rows = tabs.map((e, i) => tab_table.insertRow(0));
         rows.reverse().forEach((r, i) => {
+            if (i == tabs.indexOf(selected_tab)) {
+                r.classList.add("tr-selected");
+            }
             let cell1 = r.insertCell(0);
             let cell2 = r.insertCell(1);
             let cell3 = r.insertCell(2);
             cell1.innerHTML = i;
             cell2.innerHTML = (tab_positions[i] * 100).toFixed(2) + "%";
             cell3.innerHTML = tab_colors[i];
+
+            cell3.style.position = "relative";
+            let preview_block = document.createElement("div");
+            preview_block.style.width = "1em";
+            preview_block.style.height = "75%";
+            preview_block.style.right = "5px";
+            preview_block.style.position = "absolute";
+            preview_block.style.backgroundColor = `#${tab_colors[i]}`;
+            preview_block.style.display = "inline-block";
+            cell3.appendChild(preview_block);
         });
         rows.forEach((e, i) => e.addEventListener("click", function() {
             update_selection(tabs[i]);
@@ -83,6 +96,7 @@ function main() {
     }
 
     function update_selection(tab) {
+        Array.from(tab_table.rows).forEach((item) => item.classList.remove("tr-selected"));
         tabs.forEach((i_tab) => {
             i_tab.classList.remove("selected");
         });
@@ -90,6 +104,8 @@ function main() {
             selected_tab = tab;
             tab.classList.add("selected");
             last_selected_color = tab.dataset.color;
+
+            tab_table.rows[tabs.indexOf(tab)].classList.add("tr-selected");
         } else {
             selected_tab = null;
         }
@@ -113,7 +129,7 @@ function main() {
             tab_set_color(tab);
     }
 
-    function init_tab_container() {
+    function init_tab_dragging() {
         tab_container.addEventListener("mousedown", function(e) {
             if (e.target == this) {
                 update_selection(null);
@@ -121,7 +137,7 @@ function main() {
             let grad_offset = calc_abs_left(document.querySelector("#first-tab"));
             let grad_length = calc_abs_left(document.querySelector("#last-tab")) - grad_offset;
 
-            tab_container.onmousemove = function(emove) {
+            window.onmousemove = function(emove) {
                 if (selected_tab && !(selected_tab.id == "first-tab") && !(selected_tab.id == "last-tab")) {
                     let new_tab_pos = Math.min(Math.max(0.005, (emove.clientX - grad_offset) / grad_length), .995);
                     selected_tab.style.left = compute_tab_pos(new_tab_pos);
@@ -131,8 +147,12 @@ function main() {
                 }
             };
 
-            tab_container.addEventListener("mouseup", function() {
-                this.onmousemove = null;
+            // tab_container.addEventListener("mouseup", function() {
+            //     this.onmousemove = null;
+            // });
+
+            window.addEventListener("mouseup", function() {
+                window.onmousemove = null;
             });
         });
     }
@@ -166,7 +186,7 @@ function main() {
                 return;
             }
             selected_tab.remove();
-            selected_tab = null;
+            update_selection(null);
             update_tab_data();
             update_grad(tab_colors, tab_positions);
         });
@@ -182,7 +202,7 @@ function main() {
             csInterface.evalScript(
                 `pickColor(${parseInt(selected_tab.dataset.color, 16)}, \"lib:${csInterface.getSystemPath(SystemPath.EXTENSION).replace(new RegExp('\/', 'g'), '\\\\')}\\\\AEColorPicker.aex\");`,
                 function(result) {
-                    selected_tab.dataset.color = last_selected_color = Number(result).toString(16);
+                    selected_tab.dataset.color = last_selected_color = Number(result).toString(16).toUpperCase().padStart(6, '0');
                     tab_set_color(selected_tab);
                     update_tab_data();
                     update_grad(tab_colors, tab_positions);
