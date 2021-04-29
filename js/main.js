@@ -4,7 +4,7 @@
 
 function main() {
     //init
-    //let ffx = require('./node_modules/colorama_ffx');
+    let ffx = require(__dirname + '/js/node_modules/colorama_ffx');
 
     let csInterface = new CSInterface();
     let tab_container = document.querySelector("#gradtab-container");
