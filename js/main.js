@@ -5,6 +5,7 @@
 function main() {
     //init
     let ffx = require(__dirname + '/js/node_modules/colorama_ffx');
+    ffx.writeColors();
 
     let csInterface = new CSInterface();
     let tab_container = document.querySelector("#gradtab-container");
@@ -22,13 +23,15 @@ function main() {
     let tab_colors;
     let tab_positions;
 
-    const tab_width = 10; //in px, check styls.css > .gradtab > width
+    const tab_width = 10; //in px, check styles.css > .gradtab > width
 
     const max_tab_count = 64;
 
     const extremity_soft_limit = 0.005;
 
     const picker_aex_path = `lib:${csInterface.getSystemPath(SystemPath.EXTENSION).replace(new RegExp('\/', 'g'), '\\\\')}\\\\AEColorPicker.aex`;
+
+    const ffxPath = `${csInterface.getSystemPath(SystemPath.EXTENSION).replace(new RegExp('\/', 'g'), '\\\\')}\\\\coloramen.ffx`;
 
     let selected_tab;
 
@@ -258,7 +261,7 @@ function main() {
         btn_apply.addEventListener("click", function() {
             csInterface.evalScript('queryColorama();', function(result) {
                 ffx.writeColors(tab_colors, tab_positions);
-                csInterface.evalScript(`applyColorama(${ffx.ffxPath}, ${result});`);
+                csInterface.evalScript(`applyColorama(${ffxPath}, ${result});`);
             });
         });
     }
