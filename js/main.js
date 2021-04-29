@@ -4,7 +4,7 @@
 
 function main() {
     //init
-    let ffx = require('./node_modules/colorama_ffx');
+    //let ffx = require('./node_modules/colorama_ffx');
 
     let csInterface = new CSInterface();
     let tab_container = document.querySelector("#gradtab-container");
@@ -257,23 +257,8 @@ function main() {
     function init_btn_apply() {
         btn_apply.addEventListener("click", function() {
             csInterface.evalScript('queryColorama();', function(result) {
-                switch (result) {
-                    case true:
-                        let parameters; //stringify this guy in ES
-                        csInterface.evalScript('getParameters();', function(result) {
-                            parameters = result;
-                        });
-                        ffx.writeColors(tab_colors, tab_positions, "ffx");
-                        csInterface.evalScript(`applyColorama(${ffx.ffxPath});`);
-                        csInterface.evalScript(`setParameters(${parameters});`);
-                        break;
-                    case false:
-                        ffx.writeColors(tab_colors, tab_positions, "scratch");
-                        csInterface.evalScript(`applyColorama(${ffx.ffxPath});`);
-                        break;
-                    default:
-                        return;
-                }
+                ffx.writeColors(tab_colors, tab_positions);
+                csInterface.evalScript(`applyColorama(${ffx.ffxPath}, ${result});`);
             });
         });
     }
