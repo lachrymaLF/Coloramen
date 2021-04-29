@@ -6,6 +6,11 @@ Adobe After Effects CEP helper panel for the clunky Colorama effect
 
 Achieved through direct manipulation of the animation preset binary
 
+### Caveats
+- The data in [Source / Masks / Effects & Masks] option will not be saved
+- Keyframes and expressions are not saved
+
+### How it works
 Here is a diagram explaining the .ffx data stored for Colorama
 
 ![Explanation of Colorama data](https://i.imgur.com/U0D5Q5h.png)
@@ -19,4 +24,4 @@ It also seems that the same data repeats once at 0CD0 and 0ED3 (keys and # of ke
 
 ![Labels of Colorama](https://i.imgur.com/TLkFsAq.png)
 
-- Thanks to [Belonit/AEColorPicker](https://github.com/Belonit/AEColorPicker)
+- Massive thanks to [Belonit/AEColorPicker](https://github.com/Belonit/AEColorPicker)
