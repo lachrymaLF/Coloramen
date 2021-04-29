@@ -6,14 +6,15 @@ function main() {
     //init
     let csInterface = new CSInterface();
     let tab_container = document.querySelector("#gradtab-container");
-    let btn_addtab = document.querySelector("#btn_addtab");
-    let btn_deltab = document.querySelector("#btn_deltab");
-    let btn_changecolor = document.querySelector("#btn_changecolor");
-    let btn_apply = document.querySelector("#btn_apply");
+    let btn_addtab = document.querySelector("#btn-addtab");
+    let btn_deltab = document.querySelector("#btn-deltab");
+    let btn_changecolor = document.querySelector("#btn-changecolor");
+    let btn_apply = document.querySelector("#btn-apply");
     let gradient = document.querySelector("#grad");
     let tab_table = document.querySelector("#tab-table");
     let pos_input = document.querySelector("#pos-input");
     let btn_table = document.querySelector("#btn-table");
+    let btn_help = document.querySelector("#btn-help");
 
     let tabs;
     let tab_colors;
@@ -38,7 +39,8 @@ function main() {
     init_btn_changecolor();
     init_btn_apply();
     init_btn_table();
-    init_pos_input()
+    init_btn_help();
+    init_pos_input();
 
     themeManager.init();
 
@@ -257,6 +259,12 @@ function main() {
                 this.value = Math.max(Math.min(this.value, 1 - extremity_soft_limit), extremity_soft_limit);
                 update_tab_pos(selected_tab, this.value);
             }
+        });
+    }
+
+    function init_btn_help() {
+        btn_help.addEventListener("click", function() {
+            csInterface.evalScript('alert("Coloramen v0.0.1\\nColorama helper panel\\nlachrymal.net\\n2021")');
         });
     }
 
