@@ -2,6 +2,10 @@
 
 Adobe After Effects CEP helper panel for the clunky Colorama effect
 
+![GIF Demo](https://user-images.githubusercontent.com/13716477/116627160-980a7c80-a91a-11eb-9423-60a6f77192c9.gif)
+
+Achieved through direct manipulation of the animation preset binary
+
 Here is a diagram explaining the .ffx data stored for Colorama
 
 ![Explanation of Colorama data](https://i.imgur.com/U0D5Q5h.png)
@@ -15,6 +19,4 @@ It also seems that the same data repeats once at 0CD0 and 0ED3 (keys and # of ke
 
 ![Labels of Colorama](https://i.imgur.com/TLkFsAq.png)
 
-(not yet) Achieved through hex .ffx manipulation
-
-Thanks to [Belonit/AEColorPicker](https://github.com/Belonit/AEColorPicker) 
+- Thanks to [Belonit/AEColorPicker](https://github.com/Belonit/AEColorPicker)
