@@ -12,6 +12,8 @@ function main() {
     let btn_apply = document.querySelector("#btn_apply");
     let gradient = document.querySelector("#grad");
     let tab_table = document.querySelector("#tab-table");
+    let pos_input = document.querySelector("#pos-input");
+    let btn_table = document.querySelector("#btn-table");
 
     let tabs;
     let tab_colors;
@@ -20,6 +22,8 @@ function main() {
     const tab_width = 10; //in px, check styls.css > .gradtab > width
 
     const max_tab_count = 64;
+
+    const extremity_soft_limit = 0.005;
 
     let selected_tab;
 
@@ -33,6 +37,8 @@ function main() {
     init_btn_deltab();
     init_btn_changecolor();
     init_btn_apply();
+    init_btn_table();
+    init_pos_input()
 
     themeManager.init();
 
@@ -106,8 +112,16 @@ function main() {
             last_selected_color = tab.dataset.color;
 
             tab_table.rows[tabs.indexOf(tab)].classList.add("tr-selected");
+            if ((selected_tab.id == "first-tab") || (selected_tab.id == "last-tab")) {
+                pos_input.disabled = true;
+            } else {
+                pos_input.disabled = false;
+            }
+            pos_input.value = tab.dataset.pos;
         } else {
             selected_tab = null;
+            pos_input.value = '';
+            pos_input.disabled = true;
         }
     }
 
@@ -119,6 +133,15 @@ function main() {
         tab.style.backgroundColor = `#${tab.dataset.color}`;
     }
 
+    function update_tab_pos(tab, pos) {
+        if ((selected_tab.id == "first-tab") || (selected_tab.id == "last-tab"))
+            return;
+        tab.style.left = compute_tab_pos(pos);
+        pos_input.value = tab.dataset.pos = pos;
+        update_tab_data();
+        update_grad(tab_colors, tab_positions);
+    }
+
     //init functions
     function init_tab(tab) {
         tab.addEventListener("mousedown", function() {
@@ -127,6 +150,16 @@ function main() {
         tab.style.left = compute_tab_pos(tab.dataset.pos);
         if (tab.dataset.color)
             tab_set_color(tab);
+        tab.addEventListener("dblclick", function() {
+            csInterface.evalScript(
+                `pickColor(${parseInt(selected_tab.dataset.color, 16)}, \"lib:${csInterface.getSystemPath(SystemPath.EXTENSION).replace(new RegExp('\/', 'g'), '\\\\')}\\\\AEColorPicker.aex\");`,
+                function(result) {
+                    selected_tab.dataset.color = last_selected_color = Number(result).toString(16).toUpperCase().padStart(6, '0');
+                    tab_set_color(selected_tab);
+                    update_tab_data();
+                    update_grad(tab_colors, tab_positions);
+                });
+        });
     }
 
     function init_tab_dragging() {
@@ -139,18 +172,14 @@ function main() {
 
             window.onmousemove = function(emove) {
                 if (selected_tab && !(selected_tab.id == "first-tab") && !(selected_tab.id == "last-tab")) {
-                    let new_tab_pos = Math.min(Math.max(0.005, (emove.clientX - grad_offset) / grad_length), .995);
-                    selected_tab.style.left = compute_tab_pos(new_tab_pos);
-                    selected_tab.dataset.pos = new_tab_pos;
-                    update_tab_data();
-                    update_grad(tab_colors, tab_positions);
+                    let new_tab_pos = Math.min(Math.max(extremity_soft_limit, (emove.clientX - grad_offset) / grad_length), 1 - extremity_soft_limit);
+                    update_tab_pos(selected_tab, new_tab_pos);
                 }
             };
 
             // tab_container.addEventListener("mouseup", function() {
             //     this.onmousemove = null;
             // });
-
             window.addEventListener("mouseup", function() {
                 window.onmousemove = null;
             });
@@ -213,6 +242,28 @@ function main() {
     function init_btn_apply() {
         btn_apply.addEventListener("click", function() {
             //TODO: edit .ffx and apply to selected, maybe do this in node directly?
+        });
+    }
+
+    function init_pos_input() {
+        pos_input.disabled = true;
+        pos_input.addEventListener("focusout", function() {
+            this.value = Math.max(Math.min(this.value, 1 - extremity_soft_limit), extremity_soft_limit);
+            update_tab_pos(selected_tab, this.value);
+        });
+        pos_input.addEventListener("keyup", function(e) {
+            if (e.keyCode === 13) {
+                e.preventDefault();
+                this.value = Math.max(Math.min(this.value, 1 - extremity_soft_limit), extremity_soft_limit);
+                update_tab_pos(selected_tab, this.value);
+            }
+        });
+    }
+
+    function init_btn_table() {
+        btn_table.addEventListener("click", function() {
+            this.classList.toggle("pushed");
+            tab_table.parentElement.classList.toggle("hidden");
         });
     }
 
