@@ -7,8 +7,8 @@ Adobe After Effects CEP helper panel for the clunky Colorama effect
 Achieved through direct manipulation of the animation preset binary
 
 ### Caveats
-- The data in [Source / Masks / Effects & Masks] option will not be saved
-- Keyframes and expressions are not saved
+- The data in [Source / Masks / Effects & Masks] options of Add Phase and Mask Layer will not be saved
+- Keyframes and expressions on the effect are not saved
 
 ### How it works
 Here is a diagram explaining the .ffx data stored for Colorama
