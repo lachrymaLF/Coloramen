@@ -26,6 +26,8 @@ function main() {
 
     const extremity_soft_limit = 0.005;
 
+    const picker_aex_path = `lib:${csInterface.getSystemPath(SystemPath.EXTENSION).replace(new RegExp('\/', 'g'), '\\\\')}\\\\AEColorPicker.aex`;
+
     let selected_tab;
 
     let last_selected_color = "FF0000";
@@ -83,16 +85,27 @@ function main() {
             cell3.style.position = "relative";
             let preview_block = document.createElement("div");
             preview_block.style.width = "1.2em";
-            preview_block.style.height = "82%";
+            preview_block.style.height = "1.2em";
             preview_block.style.right = "5px";
             preview_block.style.position = "absolute";
             preview_block.style.backgroundColor = `#${tab_colors[i]}`;
             preview_block.style.display = "inline-block";
+            preview_block.style.border = "2px gray solid";
             cell3.appendChild(preview_block);
         });
         rows.forEach((e, i) => e.addEventListener("click", function() {
             update_selection(tabs[i]);
             update_grad(tab_colors, tab_positions);
+        }));
+        rows.forEach((e, i) => e.addEventListener("dblclick", function() {
+            csInterface.evalScript(
+                `pickColor(${parseInt(selected_tab.dataset.color, 16)}, \"${picker_aex_path}\");`,
+                function(result) {
+                    selected_tab.dataset.color = last_selected_color = Number(result).toString(16).toUpperCase().padStart(6, '0');
+                    tab_set_color(selected_tab);
+                    update_tab_data();
+                    update_grad(tab_colors, tab_positions);
+                });
         }));
     }
 
@@ -154,7 +167,7 @@ function main() {
             tab_set_color(tab);
         tab.addEventListener("dblclick", function() {
             csInterface.evalScript(
-                `pickColor(${parseInt(selected_tab.dataset.color, 16)}, \"lib:${csInterface.getSystemPath(SystemPath.EXTENSION).replace(new RegExp('\/', 'g'), '\\\\')}\\\\AEColorPicker.aex\");`,
+                `pickColor(${parseInt(selected_tab.dataset.color, 16)}, \"${picker_aex_path}\");`,
                 function(result) {
                     selected_tab.dataset.color = last_selected_color = Number(result).toString(16).toUpperCase().padStart(6, '0');
                     tab_set_color(selected_tab);
@@ -232,7 +245,7 @@ function main() {
             }
 
             csInterface.evalScript(
-                `pickColor(${parseInt(selected_tab.dataset.color, 16)}, \"lib:${csInterface.getSystemPath(SystemPath.EXTENSION).replace(new RegExp('\/', 'g'), '\\\\')}\\\\AEColorPicker.aex\");`,
+                `pickColor(${parseInt(selected_tab.dataset.color, 16)}, \"${picker_aex_path}\");`,
                 function(result) {
                     selected_tab.dataset.color = last_selected_color = Number(result).toString(16).toUpperCase().padStart(6, '0');
                     tab_set_color(selected_tab);
