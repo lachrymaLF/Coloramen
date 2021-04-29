@@ -4,6 +4,8 @@
 
 function main() {
     //init
+    let ffx = require('./node_modules/colorama_ffx');
+
     let csInterface = new CSInterface();
     let tab_container = document.querySelector("#gradtab-container");
     let btn_addtab = document.querySelector("#btn-addtab");
@@ -193,9 +195,6 @@ function main() {
                 }
             };
 
-            // tab_container.addEventListener("mouseup", function() {
-            //     this.onmousemove = null;
-            // });
             window.addEventListener("mouseup", function() {
                 window.onmousemove = null;
             });
@@ -257,7 +256,25 @@ function main() {
 
     function init_btn_apply() {
         btn_apply.addEventListener("click", function() {
-            //TODO: edit .ffx and apply to selected, maybe do this in node directly?
+            csInterface.evalScript('queryColorama();', function(result) {
+                switch (result) {
+                    case true:
+                        let parameters; //stringify this guy in ES
+                        csInterface.evalScript('getParameters();', function(result) {
+                            parameters = result;
+                        });
+                        ffx.writeColors(tab_colors, tab_positions, "ffx");
+                        csInterface.evalScript(`applyColorama(${ffx.ffxPath});`);
+                        csInterface.evalScript(`setParameters(${parameters});`);
+                        break;
+                    case false:
+                        ffx.writeColors(tab_colors, tab_positions, "scratch");
+                        csInterface.evalScript(`applyColorama(${ffx.ffxPath});`);
+                        break;
+                    default:
+                        return;
+                }
+            });
         });
     }
 
