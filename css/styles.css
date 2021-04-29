@@ -1,6 +1,6 @@
 @font-face {
     font-family: Latin Modern;
-    src: url('https://lachrymal.net/assets/layout/fonts/LMR/lmroman-regular.woff');
+    src: url('lmroman-regular.woff');
     font-style: normal;
 }
 
@@ -86,7 +86,7 @@ button {
     transition: .1s;
     padding: 0;
     font-family: Symbola, sans-serif;
-    font-size: 1.9em;
+    font-size: 1.6em;
 }
 
 button:hover {

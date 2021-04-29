@@ -82,8 +82,8 @@ function main() {
 
             cell3.style.position = "relative";
             let preview_block = document.createElement("div");
-            preview_block.style.width = "1em";
-            preview_block.style.height = "75%";
+            preview_block.style.width = "1.2em";
+            preview_block.style.height = "82%";
             preview_block.style.right = "5px";
             preview_block.style.position = "absolute";
             preview_block.style.backgroundColor = `#${tab_colors[i]}`;
