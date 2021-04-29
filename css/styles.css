@@ -211,5 +211,5 @@ button:active {
 }
 
 .hidden {
-    visibility: hidden;
+    display: none;
 }
