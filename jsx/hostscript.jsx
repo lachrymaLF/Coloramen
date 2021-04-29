@@ -6,9 +6,9 @@ function applyColorama(){
     //TODO: use ID to perserve effect for script
     //TODO: preset
     app.beginUndoGroup("Apply Colorama");
-    var bruh = app.project.activeItem.selectedLayers;
+    var s = app.project.activeItem.selectedLayers;
     for (var i=0; i < bruh.length; i++){
-        bruh[i].effect.addProperty("APC Colorama");
+        s[i].effect.addProperty("APC Colorama");
     }
     app.endUndoGroup();
 }
@@ -31,14 +31,11 @@ function applyColorama(){
 //     return userColor;
 // }
 
-function pickColor() {
-    // TODO: figure out the right location for relative paths
-    // TODO: communicate old color from last selected color in main.js
-    var externalLibrary = new ExternalObject('lib:AEColorPicker.aex'); 
-    var oldColor = 0x20F186;
+function pickColor(oldColor, dir) {
+    var externalLibrary = new ExternalObject(dir);
     var newColor = externalLibrary.colorPicker(oldColor, "dialog_title");
     if(newColor == -1){ //Returns -1 if user clicked on cancel
         newColor = oldColor;
     }
-    alert(newColor);
+    return newColor;
 }
