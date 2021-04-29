@@ -70,7 +70,7 @@ function main() {
         Array.from(tab_table.children[0].rows).forEach((e) => e.remove());
         let rows = tabs.map((e, i) => tab_table.insertRow(0));
         rows.reverse().forEach((r, i) => {
-            if (i == tabs.indexOf(selected_tab)) {
+            if (i === tabs.indexOf(selected_tab)) {
                 r.classList.add("tr-selected");
             }
             let cell1 = r.insertCell(0);
@@ -114,7 +114,7 @@ function main() {
             last_selected_color = tab.dataset.color;
 
             tab_table.rows[tabs.indexOf(tab)].classList.add("tr-selected");
-            if ((selected_tab.id == "first-tab") || (selected_tab.id == "last-tab")) {
+            if ((selected_tab.id === "first-tab") || (selected_tab.id === "last-tab")) {
                 pos_input.disabled = true;
             } else {
                 pos_input.disabled = false;
@@ -122,7 +122,7 @@ function main() {
             pos_input.value = tab.dataset.pos;
         } else {
             selected_tab = null;
-            pos_input.value = '';
+            pos_input.value = "";
             pos_input.disabled = true;
         }
     }
@@ -136,7 +136,7 @@ function main() {
     }
 
     function update_tab_pos(tab, pos) {
-        if ((selected_tab.id == "first-tab") || (selected_tab.id == "last-tab"))
+        if ((selected_tab.id === "first-tab") || (selected_tab.id === "last-tab"))
             return;
         tab.style.left = compute_tab_pos(pos);
         pos_input.value = tab.dataset.pos = pos;
@@ -166,14 +166,15 @@ function main() {
 
     function init_tab_dragging() {
         tab_container.addEventListener("mousedown", function(e) {
-            if (e.target == this) {
+            if (e.target === this) {
                 update_selection(null);
+                return;
             };
             let grad_offset = calc_abs_left(document.querySelector("#first-tab"));
             let grad_length = calc_abs_left(document.querySelector("#last-tab")) - grad_offset;
 
             window.onmousemove = function(emove) {
-                if (selected_tab && !(selected_tab.id == "first-tab") && !(selected_tab.id == "last-tab")) {
+                if (selected_tab && !(selected_tab.id === "first-tab") && !(selected_tab.id === "last-tab")) {
                     let new_tab_pos = Math.min(Math.max(extremity_soft_limit, (emove.clientX - grad_offset) / grad_length), 1 - extremity_soft_limit);
                     update_tab_pos(selected_tab, new_tab_pos);
                 }
@@ -212,7 +213,7 @@ function main() {
                 csInterface.evalScript('alert("No tab selected!");');
                 return;
             }
-            if (selected_tab.id == "last-tab" || selected_tab.id == "first-tab") {
+            if (selected_tab.id === "last-tab" || selected_tab.id === "first-tab") {
                 csInterface.evalScript('alert("This tab cannot be deleted!");');
                 return;
             }
@@ -250,14 +251,12 @@ function main() {
     function init_pos_input() {
         pos_input.disabled = true;
         pos_input.addEventListener("focusout", function() {
-            this.value = Math.max(Math.min(this.value, 1 - extremity_soft_limit), extremity_soft_limit);
-            update_tab_pos(selected_tab, this.value);
+            update_tab_pos(selected_tab, Math.max(Math.min(this.value, 1 - extremity_soft_limit), extremity_soft_limit));
         });
         pos_input.addEventListener("keyup", function(e) {
             if (e.keyCode === 13) {
                 e.preventDefault();
-                this.value = Math.max(Math.min(this.value, 1 - extremity_soft_limit), extremity_soft_limit);
-                update_tab_pos(selected_tab, this.value);
+                update_tab_pos(selected_tab, Math.max(Math.min(this.value, 1 - extremity_soft_limit), extremity_soft_limit));
             }
         });
     }
