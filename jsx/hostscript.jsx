@@ -39,8 +39,7 @@ function queryColorama() {
 
 function applyColorama(dirToFFX, effectPresent) {
     if (effectPresent) {
-        focusColorama();
-        
+        focusColorama();        
         getParameters();
     }
     var layer = app.project.activeItem.selectedLayers[0];
