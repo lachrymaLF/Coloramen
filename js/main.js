@@ -18,6 +18,8 @@ function main() {
 
     const tab_width = 10; //in px, check styls.css > .gradtab > width
 
+    const max_tab_count = 64;
+
     let selected_tab;
 
     let last_selected_color = "FF0000";
@@ -39,11 +41,10 @@ function main() {
     // helpers
     function update_grad(colors, positions) {
         let grad_str = "linear-gradient(to right, ";
-        let tab_count = colors.length;
 
         var i;
         for (i = 0;; i++) {
-            if (i != tab_count - 1) {
+            if (i != tabs.length - 1) {
                 grad_str += `#${colors[i]} ${positions[i]*100}%, `;
             } else {
                 grad_str += `#${colors[i]} ${positions[i]*100}%)`;
@@ -117,6 +118,10 @@ function main() {
 
     function init_btn_addtab() {
         btn_addtab.addEventListener("click", function() {
+            if (!(tabs.length < max_tab_count)) {
+                csInterface.evalScript('alert("Max amount of tabs reached!");');
+                return;
+            }
             let tab = document.createElement("span");
             tab.classList.add("gradtab");
             tab.dataset.color = last_selected_color;
