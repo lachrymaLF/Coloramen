@@ -280,7 +280,7 @@ function main() {
 
     function init_btn_help() {
         btn_help.addEventListener("click", function() {
-            csInterface.evalScript('alert("Coloramen v0.0.1\\nColorama helper panel\\nlachrymal.net\\n2021")');
+            csInterface.evalScript('alert("Coloramen v1.0.0\\nColorama helper panel\\nlachrymal.net\\n2021")');
         });
     }
 
