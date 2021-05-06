@@ -27,19 +27,20 @@ function main() {
     const max_tab_count = 64;
 
     const extremity_soft_limit = 0.005;
-    alert('hi');
-    alert(process.platform);
-
 
     let root_path, picker_aex_path;
-    if (process.platform === 'win32') {
-        root_path = csInterface.getSystemPath(SystemPath.EXTENSION).replace(new RegExp('\/', 'g'), '\\\\') + '\\\\';
-        picker_aex_path = `lib:${root_path}AEColorPicker.aex`;
-    } else if (process.platform === "darwin") {
-        root_path = csInterface.getSystemPath(SystemPath.EXTENSION) + '/';
-        picker_aex_path = `lib:${root_path}AEColorPicker.plugin`;
-    } else {
-        alert("Platform Error!");
+    switch (process.platform) {
+        case 'win32':
+            root_path = csInterface.getSystemPath(SystemPath.EXTENSION).replace(new RegExp('\/', 'g'), '\\\\') + '\\\\';
+            picker_aex_path = `lib:${root_path}AEColorPicker.aex`;
+            break;
+        case 'darwin':
+            root_path = csInterface.getSystemPath(SystemPath.EXTENSION) + '/';
+            picker_aex_path = `lib:${root_path}AEColorPicker.plugin`;
+            break;
+        default:
+            alert("Platform Error!");
+            break;
     }
 
     const ffxPath = `${root_path}coloramen.ffx`;
