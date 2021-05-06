@@ -27,9 +27,21 @@ function main() {
     const max_tab_count = 64;
 
     const extremity_soft_limit = 0.005;
+    alert('hi');
+    alert(process.platform);
 
-    const root_path = csInterface.getSystemPath(SystemPath.EXTENSION).replace(new RegExp('\/', 'g'), '\\\\') + '\\\\';
-    const picker_aex_path = `lib:${root_path}AEColorPicker.aex`;
+
+    let root_path, picker_aex_path;
+    if (process.platform === 'win32') {
+        root_path = csInterface.getSystemPath(SystemPath.EXTENSION).replace(new RegExp('\/', 'g'), '\\\\') + '\\\\';
+        picker_aex_path = `lib:${root_path}AEColorPicker.aex`;
+    } else if (process.platform === "darwin") {
+        root_path = csInterface.getSystemPath(SystemPath.EXTENSION) + '/';
+        picker_aex_path = `lib:${root_path}AEColorPicker.plugin`;
+    } else {
+        alert("Platform Error!");
+    }
+
     const ffxPath = `${root_path}coloramen.ffx`;
 
     let selected_tab;
