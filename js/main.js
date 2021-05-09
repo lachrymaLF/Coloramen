@@ -101,13 +101,8 @@ function main() {
 
             cell3.style.position = "relative";
             let preview_block = document.createElement("div");
-            preview_block.style.width = "1.2em";
-            preview_block.style.height = "1.2em";
-            preview_block.style.right = "5px";
-            preview_block.style.position = "absolute";
+            preview_block.classList.add("preview-block");
             preview_block.style.backgroundColor = `#${tab_colors[i]}`;
-            preview_block.style.display = "inline-block";
-            preview_block.style.border = "2px gray solid";
             cell3.appendChild(preview_block);
         });
         rows.forEach((e, i) => e.addEventListener("click", function() {

@@ -34,14 +34,14 @@
 					<Menu>Coloramen</Menu>
 					<Geometry>
 						<Size>
-							<Height>300</Height>
-							<Width>300</Width>
+							<Height>550</Height>
+							<Width>400</Width>
 						</Size>
-                    <!--<MinSize>
-                            <Height>550</Height>
+                    	<MinSize>
+                        	<Height>550</Height>
                             <Width>400</Width>
-                        </MinSize>
-                        <MaxSize>
+                    	</MinSize>
+                        <!--<MaxSize>
                             <Height>550</Height>
                             <Width>400</Width>
                         </MaxSize>-->
