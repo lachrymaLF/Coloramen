@@ -184,6 +184,15 @@ button:active {
     background-color: rgba(255, 255, 255, .4);
 }
 
+.preview-block {
+    width: 1.2em;
+    height: 1.2em;
+    right: 5px;
+    position: absolute;
+    display: inline-block;
+    border: 2px gray solid;
+}
+
 #pos-input {
     height: 100%;
     width: 95%;
