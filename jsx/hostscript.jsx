@@ -21,13 +21,18 @@ function setParameters() {
 }
 
 function queryColorama() {
+    try {
     var s = app.project.activeItem.selectedLayers;
-    if (s.length > 1) {
-        alert("Please select only one layer!");
+    } catch (e) {
+        alert("Please select a layer!");
         return -1;
     }
     if (s.length == 0) {
         alert("Please select a layer!");
+        return -1;
+    }
+    if (s.length > 1) {
+        alert("Please select only one layer!");
         return -1;
     }
     if (s[0].effect("Coloramen")) {
@@ -66,4 +71,8 @@ function pickColor(oldColor, dir) {
         newColor = oldColor;
     }
     return newColor;
+}
+
+function help() {
+    alert("Coloramen v1.0.0\nColorama helper panel\nlachrymal.net\n2021");
 }
