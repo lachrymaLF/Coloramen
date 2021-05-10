@@ -2,7 +2,7 @@
 
 Adobe After Effects CEP helper panel for the clunky Colorama effect, soulless version
 
-![GIF Demo](https://user-images.githubusercontent.com/13716477/117592816-12e84a00-b108-11eb-97e6-366e62137be8.mp4)
+![Video Demo](https://user-images.githubusercontent.com/13716477/117592816-12e84a00-b108-11eb-97e6-366e62137be8.mp4)
 
 Achieved through direct manipulation of the animation preset binary
 
