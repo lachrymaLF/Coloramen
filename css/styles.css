@@ -12,6 +12,11 @@
     font-weight: bold;
 }
 
+:root {
+    --main-color: rgb(190, 190, 190);
+    --highlight-color: rgb(224, 224, 224);
+}
+
 p,
 a,
 h1,
@@ -27,7 +32,7 @@ button,
 input,
 td,
 th {
-    color: white;
+    color: var(--main-color);
     font-family: 'Open Sans';
 }
 
@@ -52,19 +57,20 @@ table {
 
 #tab-table-labels th {
     font-size: 14px;
+    color: var(--highlight-color);
 }
 
 #tab-table-labels,
 #tab-table {
-    border-top: 1px white solid;
+    border-top: 1px var(--main-color) solid;
 }
 
 #tab-table td {
-    border-bottom: 1px white solid;
+    border-bottom: 1px var(--main-color) solid;
 }
 
 #tab-table-labels tr {
-    background-color: rgba(255, 255, 255, .2)
+    background-color: rgba(255, 255, 255, .2);
 }
 
 #tab-table tr {
@@ -89,7 +95,7 @@ table {
 button {
     height: 2em;
     background-color: transparent;
-    border: 1px solid white;
+    border: 1px solid var(--main-color);
     outline: none;
     transition: .1s;
     padding: 0;
@@ -98,7 +104,7 @@ button {
 }
 
 button:hover {
-    background-color: white;
+    background-color: var(--highlight-color);
     color: black;
 }
 
@@ -181,7 +187,7 @@ button:active {
 }
 
 #btn-table {
-    border: 1px white solid;
+    border: 1px var(--main-color) solid;
     height: 100%;
     width: 95%;
     transition: .1s;
@@ -208,10 +214,10 @@ button:active {
     height: 100%;
     width: 95%;
     background-color: transparent;
-    color: white;
+    color: var(--main-color);
     text-align: center;
     font-size: 1.4em;
-    border: 1px solid white;
+    border: 1px solid var(--main-color);
 }
 
 #pos-input::selection {
@@ -225,7 +231,7 @@ button:active {
 }
 
 .pushed {
-    background-color: white;
+    background-color: var(--highlight-color);
 }
 
 .pushed h2 {
