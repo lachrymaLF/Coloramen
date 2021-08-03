@@ -43,7 +43,7 @@ function main() {
             break;
     }
 
-    const ffxPath = `${root_path}coloramen.ffx`;
+    const ffxPath = ffx.outPath.replace(new RegExp('\\\\', 'g'), '\\\\');
 
     let selected_tab;
 
