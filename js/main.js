@@ -43,7 +43,7 @@ function main() {
             break;
     }
 
-    const ffxPath = ffx.outPath.replace(new RegExp('\\\\', 'g'), '\\\\');
+    const ffxPath = ffx.outPath;
 
     let selected_tab;
 
